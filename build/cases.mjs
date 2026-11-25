@@ -43,6 +43,48 @@ export const cases = [
   open: [['Interview golfers and scorers', 'Phỏng vấn người chơi và người ghi điểm'], ['Time a full round against the 5 to 10 minute claim', 'Đo thời gian nhập một vòng so với mốc 5 đến 10 phút'], ['Reconcile the spec, which says keys 1 to 9, with the shipped 1 to 10', 'Thống nhất tài liệu (phím 1 đến 9) với bản đã làm (1 đến 10)']],
 },
 {
+  slug: 'edu360', name: 'Edu360', bg: '#a30a62', fg: '#fff5fa', ac: '#ffc570',
+  title: ['Edu360', 'Edu360'],
+  line: ['School records, tuition and messages for the Ministry of Education of Myanmar and its schools, in one app.', 'Hồ sơ, học phí và tin nhắn cho Bộ Giáo dục Myanmar cùng các trường, trong một app.'],
+  hero: { kind: 'ios', img: 'ed-student' },
+  facts: [[['Role', 'Vai trò'], ['UX/UI designer', 'UX/UI designer']], [['For', 'Dành cho'], ['Ministry of Education, Myanmar, and its universities and colleges', 'Bộ Giáo dục Myanmar cùng các trường đại học, cao đẳng']], [['Size', 'Quy mô'], ['Mobile app and back office, 4 roles, 20 modules', 'App di động và web quản trị, 4 vai trò, 20 phân hệ']], [['Languages', 'Ngôn ngữ'], ['English and Myanmar, payments in MMK', 'Tiếng Anh và Myanmar, thanh toán bằng MMK']]],
+  problemH: ['The problem', 'Bài toán'],
+  problem: ['Students, teachers, schools and the Ministry each work from a different list. Grades in one place, tuition in another, notices in a third.', 'Sinh viên, giảng viên, nhà trường và Bộ mỗi bên làm việc trên một danh sách riêng. Điểm một nơi, học phí một nơi, thông báo một nơi.'],
+  source: [['Where this comes from', 'Nguồn'], ['The software requirements specification, version 1.0, August 2025, and the UI boards. The document holds no interviews or personas.', 'Tài liệu đặc tả yêu cầu phần mềm bản 1.0, tháng 8/2025, và các bảng giao diện. Tài liệu không có phỏng vấn hay chân dung người dùng.']],
+  users: [[['Ministry', 'Bộ'], ['Monitors schools, issues policies and sends notices.', 'Theo dõi các trường, ban hành chính sách, gửi thông báo.']], [['School admin', 'Quản trị trường'], ['Runs training, grades, calendar, tuition and records.', 'Quản lý đào tạo, điểm, lịch, học phí và hồ sơ.']], [['Teacher', 'Giảng viên'], ['Takes attendance, enters grades, shares material.', 'Điểm danh, nhập điểm, chia sẻ tài liệu.']], [['Student', 'Sinh viên'], ['Looks up grades and timetable, pays tuition.', 'Xem điểm, thời khóa biểu, đóng học phí.']]],
+  xh: ['A student opens the app between two classes', 'Sinh viên mở app giữa hai tiết học'],
+  x: { kind: 'phone', img: 'ed-studentx', alt: ['Student home with numbers, shortcuts, a game banner, tuition and classes', 'Trang chủ sinh viên với số liệu, lối tắt, banner game, học phí và lịch học'], marks: [[4, 12.6, 92, 9.6], [4, 23.2, 92, 13], [4, 36.6, 92, 16.2], [4, 54.4, 92, 16.2], [4, 71.6, 92, 26]] },
+  dec: [
+    [['Each role gets its own first screen', 'Mỗi vai trò một màn đầu'], ['Subjects, remaining and GPA for a student. Attendance rate for a teacher. Staff, students and debts for an admin. Same system, different first question.', 'Sinh viên thấy số môn, số còn lại và GPA. Giảng viên thấy tỉ lệ chuyên cần. Quản trị thấy nhân sự, sinh viên và nợ học phí. Cùng hệ thống, khác câu hỏi đầu tiên.']],
+    [['Four doors, not a menu', 'Bốn cửa, không phải menu'], ['Schedule, grade, tuition, support. The rest lives behind Explore, so the home never becomes a list of everything.', 'Lịch, điểm, học phí, hỗ trợ. Phần còn lại nằm trong Khám phá, để trang chủ không thành danh sách mọi thứ.']],
+    [['A game on top of school', 'Một trò chơi trên nền trường học'], ['“Who is the Champion?” is a seven-day challenge with locked days and a daily limit, there to bring students back.', '“Who is the Champion?” là thử thách bảy ngày, có ngày khóa và giới hạn lượt mỗi ngày, để sinh viên quay lại.']],
+    [['Debt is a progress bar', 'Nợ học phí là một thanh tiến độ'], ['Total, paid and a status in words. Paying hands off to MytelPay, which returns a clear success or failure, so money logic stays in one system.', 'Tổng, đã đóng và trạng thái bằng chữ. Thanh toán chuyển sang MytelPay rồi trả về thành công hay thất bại, nên logic tiền chỉ ở một nơi.']],
+    [['The next class needs no tap', 'Tiết học kế tiếp không cần chạm'], ['Time, room and teacher sit on the home screen. The full calendar is one shortcut away.', 'Giờ, phòng và giảng viên nằm ngay trang chủ. Lịch đầy đủ cách một lối tắt.']]
+  ],
+  flows: [
+    { t: ['Paying tuition', 'Đóng học phí'], d: ['Student, from home to a result.', 'Sinh viên, từ trang chủ tới kết quả.'], s: [
+      [['Tuition', 'Học phí'], '', ['From the card on home or the shortcut.', 'Từ thẻ ở trang chủ hoặc lối tắt.']],
+      [['Semesters', 'Học kỳ'], '', ['Each shows due date, total, paid, remaining and a progress bar.', 'Mỗi kỳ có hạn đóng, tổng, đã đóng, còn lại và thanh tiến độ.']],
+      [['Detail', 'Chi tiết'], '', ['Code, name, quantity, unit price and total, in MMK.', 'Mã, tên, số lượng, đơn giá và tổng, bằng MMK.']],
+      [['MytelPay', 'MytelPay'], 'd', ['The order is created once, with a callback, a timeout and idempotency.', 'Đơn chỉ tạo một lần, có phản hồi, thời hạn và chống trùng.']],
+      [['Result', 'Kết quả'], 'd', ['Success or failure, each with its own message.', 'Thành công hoặc thất bại, mỗi bên một thông báo.']]] },
+    { t: ['Taking attendance', 'Điểm danh'], d: ['Teacher, from the calendar to a saved list.', 'Giảng viên, từ lịch tới danh sách đã lưu.'], s: [
+      [['Schedule', 'Lịch'], '', ['Pick a day, then a class.', 'Chọn ngày, rồi chọn lớp.']],
+      [['Mark', 'Đánh dấu'], 'd', ['Present, absent or late. Choosing absent asks for excused or unexcused.', 'Có mặt, vắng hoặc muộn. Chọn vắng thì hỏi có phép hay không phép.']],
+      [['Save', 'Lưu'], '', ['A confirm popup, because the record is official.', 'Có hộp xác nhận, vì đây là hồ sơ chính thức.']],
+      [['Saved', 'Đã lưu'], '', ['A success message closes the loop.', 'Thông báo thành công để kết thúc.']]] },
+    { t: ['Approving a change', 'Duyệt thay đổi'], d: ['Admin, where a second person is required.', 'Quản trị, nơi cần người thứ hai.'], s: [
+      [['Submitted', 'Gửi lên'], '', ['Sensitive changes do not apply at once.', 'Thay đổi nhạy cảm không áp dụng ngay.']],
+      [['Pending', 'Chờ duyệt'], '', ['The approver is notified.', 'Người duyệt được báo.']],
+      [['Decision', 'Quyết định'], 'd', ['Approved, the action runs. Rejected, the data stays as it was. The creator is told either way.', 'Duyệt thì thực hiện. Từ chối thì dữ liệu giữ nguyên. Người gửi đều được báo.']]] }],
+  boards: { h: ['Boards behind the app', 'Các bảng phía sau app'], items: [['ed-tuition', ['Tuition, from the list to the MytelPay result.', 'Học phí, từ danh sách tới kết quả MytelPay.']], ['ed-attend', ['Schedule and attendance for teachers.', 'Lịch và điểm danh của giảng viên.']], ['ed-flow', ['Every student screen on one board.', 'Mọi màn của sinh viên trên một bảng.']], ['ed-game', ['“Who is the Champion?”, home and states.', '“Who is the Champion?”, trang chính và các trạng thái.']], ['ed-quiz', ['Question types.', 'Các loại câu hỏi.']], ['ed-comp', ['The component library.', 'Thư viện component.']]] },
+  states: [['Unpaid', 'Chưa đóng'], ['Partially submitted', 'Đóng một phần'], ['Full paid', 'Đã đóng đủ'], ['Overdue', 'Quá hạn'], ['Present', 'Có mặt'], ['Absent', 'Vắng'], ['Late', 'Muộn'], ['Pending', 'Chờ duyệt'], ['Rejected', 'Từ chối'], ['No news', 'Chưa có tin'], ['Grades did not load', 'Không tải được điểm'], ['Wrong login', 'Sai đăng nhập']],
+  galH: ['One app, four first screens', 'Một app, bốn màn đầu tiên'],
+  gal: [['ed-student', ['Student.', 'Sinh viên.'], 'tall'], ['ed-teacher', ['Teacher.', 'Giảng viên.'], 'tall'], ['ed-admin', ['School admin.', 'Quản trị trường.'], 'tall'], ['ed-moe', ['Ministry, with charts by school.', 'Bộ, với biểu đồ theo trường.'], 'tall']],
+  done: [['Four role-based experiences on one design system', 'Bốn trải nghiệm theo vai trò trên một design system'], ['Flow boards for every role, including tuition and attendance', 'Bảng luồng cho mọi vai trò, gồm học phí và điểm danh'], ['A game layer with its own states, rules and rewards', 'Lớp trò chơi có trạng thái, luật và phần thưởng riêng']],
+  open: [['Interview students, teachers and admins', 'Phỏng vấn sinh viên, giảng viên và quản trị'], ['Design the parent role, chat and assistant, which are in scope without flows', 'Thiết kế vai trò phụ huynh, chat và trợ lý, hiện có trong phạm vi nhưng chưa có luồng'], ['Specify accessibility and offline use', 'Làm rõ khả năng tiếp cận và dùng khi mất mạng']],
+},
+{
   slug: 'vcci', name: 'VCCI Trade Hub', bg: '#08082e', fg: '#ffffff', ac: '#d4af37', wide: true,
   title: ['VCCI Trade Hub', 'VCCI Trade Hub'],
   line: ['The B2B gateway of the Vietnam Chamber of Commerce and Industry, rebuilt as one marketplace with a CMS behind it.', 'Cổng giao thương B2B của VCCI, dựng lại thành một sàn duy nhất, phía sau là CMS.'],
