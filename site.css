@@ -497,6 +497,16 @@ html[data-motion=off] .totop{transition:none}
 .boards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 30px}
 .boards img{border-radius:16px;width:100%;box-shadow:0 0 0 1px rgba(42,10,32,.1)}
 .boards figcaption{margin-top:12px;font-size:1rem;max-width:56ch}
+/* my role */
+.mine{background:var(--bg);color:var(--fg)}
+.mine-in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:30px clamp(40px,6vw,110px);align-items:start}
+.mine h2{font-size:var(--h2);margin-bottom:26px}
+.mine .lead{font-size:clamp(1.2rem,1.75vw,1.6rem);line-height:1.42;max-width:32ch}
+.mine li{display:grid;grid-template-columns:56px 1fr;gap:14px;padding:24px 0;border-top:2px solid color-mix(in srgb,currentColor 28%,transparent)}
+.mine li i{font:800 1.5rem/1.15 var(--display);font-style:normal;color:var(--ac)}
+.mine li p{font-size:1.08rem;max-width:52ch}
+.mine .with{margin-top:6px;padding:20px 0 0 70px;border-top:2px solid color-mix(in srgb,currentColor 28%,transparent);font-size:var(--small);opacity:.88}
+.mine :focus-visible{outline-color:var(--ac)}
 .end2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(40px,7vw,120px)}
 .end2 h2{font-size:clamp(1.6rem,2.6vw,2.6rem);margin-bottom:24px}
 .end2 li{padding:14px 0 14px 34px;border-top:2px solid rgba(42,10,32,.16);position:relative}
@@ -622,6 +632,8 @@ html[data-motion=on] .hero:not(.in) .me .tilt{translate:0 48px}
   .ly-steps button{padding:4px 0;font-size:1.15rem}
   .ly-steps .bd p{padding-right:0;min-height:6em}
   .plates{width:min(22svh,170px)}
+  .mine-in{grid-template-columns:minmax(0,1fr)}
+  .mine .with{padding-left:0}
   .work-head,.lab-head,.about,.prob,.end2,.boards,.xs,.xs.wide,.c-hero,.c-hero.wide .hd,.p-vc .top{grid-template-columns:minmax(0,1fr)}
   .panel{position:relative;min-height:0}
   .panel .in{grid-template-columns:minmax(0,1fr)!important;padding:80px 20px 60px;min-height:0;gap:44px}
