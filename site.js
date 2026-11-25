@@ -271,12 +271,8 @@
   /* compare */
   $$('.cmp input').forEach(i => { const f = () => i.parentElement.style.setProperty('--x', i.value + '%'); i.addEventListener('input', f); f() });
   $$('.ba').forEach(b => {
-    const bt = $$('.pick button', b), A = $('.cmp .a', b), B = $('.cmp .b', b), cap = $('.cap', b);
-    bt.forEach(x => x.addEventListener('click', () => {
-      bt.forEach(y => y.setAttribute('aria-pressed', y === x));
-      A.src = x.dataset.a; B.src = x.dataset.b; $$('span[data-c]', cap).forEach(s => s.hidden = s.dataset.c !== x.dataset.i);
-      const inp = $('input', b); inp.value = 50; inp.dispatchEvent(new Event('input'));
-    }));
+    const bt = $$('.pick button', b), ps = $$('.pair', b);
+    bt.forEach(x => x.addEventListener('click', () => { bt.forEach(y => y.setAttribute('aria-pressed', y === x)); ps.forEach(p => p.hidden = p.dataset.p !== x.dataset.i) }));
   });
 
   /* hover peek */
