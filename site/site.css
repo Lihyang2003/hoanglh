@@ -80,16 +80,53 @@ html[data-view=ux] .note{grid-template-rows:1fr;margin-block:18px;visibility:vis
 
 /* hero */
 .hero{position:relative;height:100svh;min-height:640px;max-height:1180px;overflow:hidden;background:var(--pink);touch-action:pan-y}
-.face{position:absolute;inset:0;padding:84px var(--gut) 30px;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:minmax(0,1fr) auto;column-gap:clamp(20px,3vw,56px);row-gap:20px}
-.face.ux{background:var(--blue);color:#fff;clip-path:circle(0 at 70% 50%)}
+.face{position:absolute;inset:0;isolation:isolate;padding:84px var(--gut) 30px;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:minmax(0,1fr) auto;column-gap:clamp(20px,3vw,56px);row-gap:20px}
+.face.ux{background:var(--blue);color:#fff;clip-path:circle(0 at 70% 50%);pointer-events:none}
 .face.ux::before{content:"";position:absolute;inset:0 var(--gut);background:repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 calc((100% - 220px)/12),transparent 0 calc((100% - 220px)/12 + 20px))}
-.name{align-self:center;display:grid;gap:.02em;font-size:min(21vw,36svh);position:relative}
+.name{align-self:center;display:grid;grid-template-columns:minmax(0,1fr);min-width:0;gap:.02em;font-size:min(21vw,36svh,calc((100svh - 270px)/1.95));position:relative}
 .name .el{font-size:1em}
 .hero-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;position:relative}
 .hero-foot p{max-width:46ch;font-size:clamp(1.06rem,1.45vw,1.42rem);line-height:1.4;font-weight:500}
 .hero-foot .acts{display:flex;align-items:center;gap:22px;flex:none}
 .hero-ph{grid-row:1/3;grid-column:2;align-self:center;height:min(calc(100svh - 130px),820px);aspect-ratio:540/1200;perspective:1200px}
 .hero-ph .tilt{height:100%;transform-style:preserve-3d;will-change:transform}
+/* portrait in the hero: cut out, anchored to the bottom edge */
+.hero-ph.me{aspect-ratio:var(--ar);height:calc(min(max(100svh,640px),1180px) - 86px);align-self:end;margin-bottom:-30px;perspective:none;position:relative;z-index:1;pointer-events:none}
+.me .tilt{position:relative;height:100%}
+.me .tilt::before{content:"";position:absolute;left:50%;bottom:0;width:112%;aspect-ratio:1;translate:-50% 30%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.55),rgba(255,255,255,0))}
+.me img{position:relative;display:block;width:100%;height:100%;object-fit:contain;object-position:50% 100%}
+.face.ui .me img{filter:drop-shadow(0 18px 34px rgba(42,10,32,.22))}
+.me-x{position:relative;height:100%;--mk:13px}
+.me-x img{position:absolute;inset:0}
+.me-x .o{filter:brightness(0) invert(1) drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff)}
+.me-x .m{position:absolute;inset:0;background:var(--blue);-webkit-mask:url(img/me.webp) 50% 100%/contain no-repeat;mask:url(img/me.webp) 50% 100%/contain no-repeat}
+.me-x .g{filter:grayscale(1) contrast(1.2) brightness(1.15);mix-blend-mode:screen;opacity:.5}
+.face.ux .me .tilt::before{display:none}
+/* light running around the portrait */
+.trace{position:absolute;z-index:2;overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.trace use{fill:none}
+.trace .t-base{stroke:#fff;stroke-width:4;opacity:.65}
+/* one dash per layer; each layer's offset runs from its length to length - 1260, so all heads move together */
+.trace .glow{stroke:var(--blue);stroke-width:40;opacity:.55;filter:blur(12px);stroke-dasharray:110 3000;stroke-dashoffset:110}
+.trace .tail{stroke:#fff;stroke-width:6;opacity:.55;stroke-dasharray:230 3000;stroke-dashoffset:230}
+.trace .body{stroke:#fff;stroke-width:10;stroke-dasharray:100 3000;stroke-dashoffset:100}
+.trace .head{stroke:#fff;stroke-width:17;stroke-dasharray:20 3000;stroke-dashoffset:20}
+html[data-motion=on] .trace .glow{animation:me-g 8s linear infinite}
+html[data-motion=on] .trace .tail{animation:me-t 8s linear infinite}
+html[data-motion=on] .trace .body{animation:me-b 8s linear infinite}
+html[data-motion=on] .trace .head{animation:me-h 8s linear infinite}
+html[data-motion=on] .trace .t2 use{animation-delay:-4s}
+html[data-motion=off] .trace .t-c{display:none}
+@keyframes me-g{to{stroke-dashoffset:-1150}}
+@keyframes me-t{to{stroke-dashoffset:-1030}}
+@keyframes me-b{to{stroke-dashoffset:-1160}}
+@keyframes me-h{to{stroke-dashoffset:-1240}}
+.face.ux .trace .t-base{display:none}
+.face.ux .trace .t-c use{stroke:var(--mark)}
+.face.ux .trace .glow{opacity:.5}
+.hero-foot{z-index:2}
+.hero-foot .acts{position:relative;gap:14px}
+.hero-foot .acts .hint{position:absolute;right:0;bottom:100%;margin-bottom:12px;white-space:nowrap;font-size:.875rem;opacity:.8}
 .hero .ring{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3;overflow:visible}
 .hero .ring path{fill:none;stroke:var(--mark);stroke-width:3}
 .ux .el .g{outline:1px solid rgba(255,255,255,.45);outline-offset:-1px}
@@ -279,7 +316,7 @@ html[data-motion=on] .card.sk .im,html[data-motion=on] .card.sk .ln{animation:sk
 .card.done .im{background:url(img/cn-keeper.webp) center/cover}
 .vote{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
 .stp{width:min(86%,330px);height:500px;background:#f7f8f6;border-radius:34px;box-shadow:0 0 0 8px #0d0a0c,0 30px 60px -20px rgba(42,10,32,.5);overflow:hidden;display:flex;flex-direction:column;color:#111512;margin:30px 0}
-.stp header{background:#003d22;color:#fff;padding:20px 20px 18px;font-weight:700;font-size:18px}
+.stp header{background:var(--ink);color:#fff;padding:20px 20px 18px;font-weight:700;font-size:18px}
 .stp .body{flex:1;padding:14px;display:grid;gap:10px;align-content:start;position:relative}
 .stp .rw{background:#fff;border-radius:14px;padding:12px 14px;display:grid;grid-template-columns:1fr auto;gap:2px 12px;font-size:15px;line-height:1.3;box-shadow:0 0 0 1px rgba(17,21,18,.08)}
 .stp .rw small{color:#50585a;font-size:13px}
@@ -291,7 +328,7 @@ html[data-motion=on] .stp .rw.s>*{animation:pulse 1s ease-in-out infinite altern
 @keyframes pulse{to{opacity:.45}}
 .stp .mid{text-align:center;display:grid;gap:10px;justify-items:center;padding:20px 10px;margin-top:70px;font-size:15px}
 .stp .mid b{font-size:18px}
-.stp .mid button{min-height:44px;border-radius:99px;background:#006b3c;color:#fff;padding:0 22px;font-weight:650;margin-top:6px}
+.stp .mid button{min-height:44px;border-radius:99px;background:var(--blue);color:#fff;padding:0 22px;font-weight:650;margin-top:6px}
 .stp .off{background:#fbf3dc;color:#5a4200;border-radius:12px;padding:10px 14px;font-size:14px;line-height:1.35;font-weight:600}
 .schips{display:flex;flex-wrap:wrap;gap:8px}
 .schips button{min-height:44px;padding:0 16px;border-radius:99px;font-size:var(--small);font-weight:650;box-shadow:inset 0 0 0 2px rgba(42,10,32,.25)}
@@ -324,6 +361,15 @@ html[data-motion=on] .stp .rw.s>*{animation:pulse 1s ease-in-out infinite altern
 .contact .note p{background:var(--mark);color:var(--ink)}
 .contact .end{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 30px;margin-top:46px;font-size:var(--small)}
 .contact .end button{text-decoration:underline;text-underline-offset:.28em;min-height:44px}
+.contact .end-r{display:flex;flex-wrap:wrap;gap:4px 28px}
+
+/* back to top */
+.totop{position:fixed;right:var(--gut);bottom:max(110px,22svh);z-index:96;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:var(--blue);color:#fff;box-shadow:0 0 0 3px #fff,0 12px 32px rgba(42,10,32,.3);opacity:0;visibility:hidden;translate:0 14px;transition:opacity .3s,visibility .3s,translate .45s var(--out),background-color .2s,scale .2s var(--out)}
+.totop.show{opacity:1;visibility:visible;translate:none}
+.totop:hover{background:var(--ink);scale:1.06}
+.totop:active{scale:.95}
+.totop svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+html[data-motion=off] .totop{transition:none}
 
 /* ---------- case pages ---------- */
 .case{--mk:13px}
@@ -519,6 +565,8 @@ html[data-motion=on] .brief[open]{animation:brief .55s var(--out)}
 html[data-motion=on] .hero .face.ui .hero-foot{transition:opacity .8s .9s}
 html[data-motion=on] .hero .face.ui .tilt{transition:opacity .5s .35s}
 html[data-motion=on] .hero:not(.in) .face.ui .hero-foot,html[data-motion=on] .hero:not(.in) .face.ui .tilt{opacity:0}
+html[data-motion=on] .hero .face .me .tilt{transition:opacity .7s .3s,translate 1.1s .3s var(--out)}
+html[data-motion=on] .hero:not(.in) .me .tilt{translate:0 48px}
 
 @media (max-width:1080px){
   .view{margin-left:auto}
@@ -539,6 +587,8 @@ html[data-motion=on] .hero:not(.in) .face.ui .hero-foot,html[data-motion=on] .he
   .hero-foot .acts{flex-wrap:wrap}
   .hero-ph{grid-row:3;grid-column:1;justify-self:center;width:min(74vw,320px);height:auto;margin:6px 0 -120px}
   .hero-foot{grid-row:2}
+  .hero-ph.me{width:min(84vw,400px);height:auto;margin:4px 0 0;align-self:end}
+  .hero-foot .acts .hint{position:static;order:3;flex-basis:100%;margin:0;white-space:normal}
   .layers .pin{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);padding-top:76px;align-items:start}
   .ly-copy h2{margin-bottom:12px;font-size:1.8rem}
   .ly-steps li:not(.on){display:none}
@@ -595,6 +645,8 @@ html[data-motion=on] .hero:not(.in) .face.ui .hero-foot,html[data-motion=on] .he
   .brief li a{grid-template-columns:minmax(0,1fr)}
   .toc{max-width:calc(100vw - 20px);overflow-x:auto;scrollbar-width:none}
   .toc a{padding:0 12px}
+  .totop{right:14px;bottom:max(104px,16svh);width:54px;height:54px}
+  body:has(.motion-ask.show) .totop{bottom:160px}
 }
 @media (max-width:480px){
   .brand{font-size:.95rem}

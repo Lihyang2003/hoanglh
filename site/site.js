@@ -197,9 +197,10 @@
       ux.style.clipPath = `path('${d}')`; ring.setAttribute('d', d);
       ring.style.opacity = s.r > base * 2.4 ? 0 : 1;
       if (m && !small) {
-        const px = clamp((ptr.x - box.left) / box.width) - .5, py = clamp((ptr.y - box.top) / box.height) - .5;
-        s.rx = lerp(s.rx || 0, -py * 7, .07); s.ry = lerp(s.ry || 0, px * 12, .07);
-        tilts.forEach(e => e.style.transform = `rotateX(${s.rx.toFixed(2)}deg) rotateY(${s.ry.toFixed(2)}deg)`);
+        /* the portrait drifts a little against the pointer, so it sits in front of the name */
+        const px = clamp((ptr.x - box.left) / box.width) - .5;
+        s.ry = lerp(s.ry || 0, -px * 18, .07);
+        tilts.forEach(e => e.style.transform = `translate3d(${s.ry.toFixed(2)}px,0,0)`);
       }
     });
   }
@@ -423,6 +424,21 @@
     };
     addEventListener('scroll', f, { passive: true }); f();
   }
+
+  /* back to top: shows after one screen, steps aside when the footer link is in view */
+  const tt = $('.totop'), foot = $('.contact .end');
+  if (tt) {
+    let past = false, low = false;
+    const upd = () => tt.classList.toggle('show', past && !low);
+    const chk = () => { const p = scrollY > innerHeight * .9; if (p !== past) { past = p; upd() } };
+    addEventListener('scroll', chk, { passive: true }); chk();
+    if (foot) new IntersectionObserver(es => es.forEach(e => { low = e.isIntersecting; upd() })).observe(foot);
+    D.addEventListener('lang', () => tt.title = tt.getAttribute('aria-label'));
+  }
+  $$('[data-top]').forEach(b => b.addEventListener('click', () => {
+    scrollTo({ top: 0, behavior: motion() ? 'smooth' : 'auto' });
+    const f = $('.brand'); f && f.focus({ preventScroll: true });
+  }));
 
   const loop = now => { ticks.forEach(f => f(now)); requestAnimationFrame(loop) };
   requestAnimationFrame(loop);

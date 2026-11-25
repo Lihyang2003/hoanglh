@@ -42,10 +42,10 @@
   {
     const a = $('#hick');
     const G = () => [
-      [T('Play', 'Chơi'), [T('Enter score', 'Nhập điểm'), T('Book tee time', 'Đặt giờ chơi'), T('Yard book', 'Sổ đường bóng'), T('Tournaments', 'Giải đấu')]],
-      [T('Look up', 'Tra cứu'), [T('Handicap lookup', 'Tra handicap'), T('Courses', 'Sân golf'), T('Rules', 'Luật chơi'), T('Leaderboard', 'Xếp hạng')]],
-      [T('People', 'Mọi người'), [T('Clubs', 'Câu lạc bộ'), T('Friends', 'Bạn chơi'), T('Invitations', 'Lời mời'), T('Markers', 'Người xác nhận')]],
-      [T('Account', 'Tài khoản'), [T('Score history', 'Lịch sử điểm'), T('Member card', 'Thẻ hội viên'), T('Language', 'Ngôn ngữ'), T('Fees', 'Phí thường niên')]]];
+      [T('Shop', 'Mua sắm'), [T('Products', 'Sản phẩm'), T('Categories', 'Danh mục'), T('Deals', 'Khuyến mãi'), T('Cart', 'Giỏ hàng')]],
+      [T('Orders', 'Đơn hàng'), [T('Track order', 'Theo dõi đơn'), T('Purchase history', 'Lịch sử mua'), T('Returns', 'Đổi trả'), T('Invoices', 'Hóa đơn')]],
+      [T('Account', 'Tài khoản'), [T('Profile', 'Hồ sơ'), T('Addresses', 'Địa chỉ'), T('Security', 'Bảo mật'), T('Notifications', 'Thông báo')]],
+      [T('Help', 'Hỗ trợ'), [T('FAQ', 'Câu hỏi thường gặp'), T('Contact us', 'Liên hệ'), T('Policies', 'Chính sách'), T('Reviews', 'Đánh giá')]]];
     const idle = () => a.replaceChildren(startBtn(T('Start: find one item, twice', 'Bắt đầu: tìm một mục, hai lần'), go));
     const shuf = x => x.map(v => [Math.random(), v]).sort((p, q) => p[0] - q[0]).map(v => v[1]);
     function round(kind, target) {
@@ -86,7 +86,7 @@
     }
     function end(i) {
       const s = (MS / 1000).toFixed(1);
-      const tx = i === 1 ? T(`Both took exactly ${s} seconds. The second one told you something was coming.`, `Cả hai đều đúng ${s} giây. Lần sau cho bạn biết có gì đó đang tới.`) : i === 2 ? T(`Good eye: both took exactly ${s} seconds.`, `Bạn tinh thật: cả hai đều đúng ${s} giây.`) : T(`Both took exactly ${s} seconds. Most loading advice would bet on the second, and you just proved why I test.`, `Cả hai đều đúng ${s} giây. Sách vở thường nghiêng về lần sau, và bạn vừa cho thấy vì sao phải thử.`);
+      const tx = i === 1 ? T(`Both took exactly ${s} seconds. The second one told you something was coming.`, `Cả hai đều đúng ${s} giây. Lần sau cho bạn biết có gì đó đang tới.`) : i === 2 ? T(`Correct: both took exactly ${s} seconds.`, `Chính xác: cả hai đều đúng ${s} giây.`) : T(`Both took exactly ${s} seconds. Most loading advice would bet on the second, and you just proved why I test.`, `Cả hai đều đúng ${s} giây. Sách vở thường nghiêng về lần sau, và bạn vừa cho thấy vì sao phải thử.`);
       const n = bars([[T('Blank, then content', 'Trống, rồi hiện nội dung'), 1, s + ' s'], [T('Skeleton, then content', 'Khung xương, rồi hiện nội dung'), 1, s + ' s']], tx);
       n.append(startBtn(T('Run it again', 'Làm lại'), go)); a.replaceChildren(n);
     }
@@ -96,16 +96,17 @@
   /* 4. states */
   {
     const body = $('#st-body'), bt = $$('#st-chips button');
-    const rows = () => [['Yangon Golf Club', T('24 Aug, 18 holes', '24/8, 18 hố'), '83', T('Verified', 'Đã xác nhận'), ''], ['Pun Hlaing Golf Club', T('17 Aug, 18 holes', '17/8, 18 hố'), '86', T('Waiting 3 days', 'Chờ 3 ngày'), 'w'], ['City Golf Resort', T('9 Aug, 9 holes', '9/8, 9 hố'), '41', T('Verified', 'Đã xác nhận'), '']];
+    const vnd = n => T('₫' + n.toLocaleString('en-US'), n.toLocaleString('vi-VN') + ' ₫');
+    const rows = () => [[T('Order #10482', 'Đơn #10482'), T('24 Aug, 3 items', '24/8, 3 sản phẩm'), vnd(1250000), T('Delivered', 'Đã giao'), ''], [T('Order #10457', 'Đơn #10457'), T('17 Aug, 1 item', '17/8, 1 sản phẩm'), vnd(459000), T('On the way', 'Đang giao'), 'w'], [T('Order #10391', 'Đơn #10391'), T('9 Aug, 2 items', '9/8, 2 sản phẩm'), vnd(890000), T('Delivered', 'Đã giao'), '']];
     const list = r => r.map(x => `<div class="rw"><span>${x[0]}</span><b>${x[2]}</b><small>${x[1]}</small><em class="${x[4]}">${x[3]}</em></div>`).join('');
-    const sk = '<div class="rw s"><span>Yangon Golf</span><b>83</b><small>24 Aug</small><em>Verified</em></div>'.repeat(4);
+    const sk = '<div class="rw s"><span>Order #10482</span><b>1.250.000 ₫</b><small>24 Aug</small><em>Delivered</em></div>'.repeat(4);
     const mid = (b, p, c) => `<div class="mid"><b>${b}</b><span>${p}</span>${c ? `<button data-go="ok">${c}</button>` : ''}</div>`;
     const S = {
       ok: () => list(rows()), load: () => sk,
-      empty: () => mid(T('No rounds yet', 'Chưa có vòng nào'), T('Enter your first scorecard and your index starts here.', 'Nhập thẻ điểm đầu tiên để bắt đầu có chỉ số.'), T('Enter a score', 'Nhập điểm')),
-      err: () => mid(T('Rounds did not load', 'Chưa tải được vòng chơi'), T('The server took too long. Your saved rounds are safe.', 'Máy chủ phản hồi quá lâu. Các vòng đã lưu vẫn an toàn.'), T('Try again', 'Thử lại')),
-      off: () => `<p class="off">${T('You are offline. Showing rounds from 08:40 this morning.', 'Bạn đang ngoại tuyến. Đây là dữ liệu lúc 08:40 sáng nay.')}</p>` + list(rows().slice(0, 2)),
-      lock: () => mid(T('History is for Premium golfers', 'Lịch sử dành cho hội viên Premium'), T('Your rounds are kept. Upgrade to see them and get an index.', 'Các vòng của bạn vẫn được lưu. Nâng cấp để xem và có chỉ số.'), T('See Premium', 'Xem Premium'))
+      empty: () => mid(T('No orders yet', 'Chưa có đơn hàng nào'), T('Orders you place will appear here.', 'Các đơn bạn đặt sẽ hiển thị tại đây.'), T('Start shopping', 'Mua sắm ngay')),
+      err: () => mid(T('Orders did not load', 'Chưa tải được đơn hàng'), T('The server took too long. Your data is safe.', 'Máy chủ phản hồi quá lâu. Dữ liệu của bạn vẫn an toàn.'), T('Try again', 'Thử lại')),
+      off: () => `<p class="off">${T('You are offline. Showing data from 08:40 this morning.', 'Bạn đang ngoại tuyến. Đây là dữ liệu lúc 08:40 sáng nay.')}</p>` + list(rows().slice(0, 2)),
+      lock: () => mid(T('You don’t have access to this page', 'Bạn chưa có quyền xem mục này'), T('Ask an administrator to grant access. Nothing has been deleted.', 'Hãy liên hệ quản trị viên để được cấp quyền. Dữ liệu không bị mất.'), T('Request access', 'Yêu cầu quyền truy cập'))
     };
     let cur = 'ok', tm;
     const show = k => { clearTimeout(tm); cur = k; body.innerHTML = S[k](); bt.forEach(b => b.setAttribute('aria-pressed', b.dataset.s === k)); $$('[data-go]', body).forEach(b => b.onclick = () => { show('load'); tm = setTimeout(() => show('ok'), 1100) }) };
