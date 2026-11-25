@@ -170,6 +170,20 @@ html[data-motion=on] .xr.hover .xf{transition:clip-path .16s linear}
 .fan .ph:nth-child(1){height:82%;top:12%;transform:translateX(-118%) rotate(-7deg)}
 .fan .ph:nth-child(2){height:82%;top:12%;transform:translateX(18%) rotate(7deg)}
 .fan .ph:nth-child(3){transform:translateX(-50%)}
+.p-ed{--bg:#a30a62;--fg:#fff5fa;--ac:#ffc570;--at:#3a0a26}
+.p-ed .in{grid-template-columns:minmax(0,4fr) minmax(0,8fr);align-items:center;gap:44px}
+.p-ed h3{font-size:clamp(2.2rem,4.3vw,4.5rem)}
+.roles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,1.3vw,22px);align-items:center}
+.roles li{transition:transform .6s var(--out)}
+.roles li:nth-child(odd){translate:0 -26px}
+.roles li:nth-child(even){translate:0 26px}
+.roles .scr{container-type:size}
+.roles .scr>img{height:auto;min-height:100%;object-fit:cover;transition:transform 1.4s var(--out)}
+.roles li>span{display:block;text-align:center;margin-top:14px;font-weight:650}
+@media (hover:hover){.roles li:hover{transform:translateY(-10px)}.roles li:hover .scr>img{transform:translateY(calc(-100% + 100cqh));transition:transform 4s cubic-bezier(.45,0,.25,1)}}
+.strip .ph.tall{--ar:390/844!important}
+.strip .ph.tall .scr{overflow-y:auto;scrollbar-width:none}
+.strip .ph.tall .scr>img{height:auto}
 .p-vc{--bg:#08082e;--fg:#fff;--ac:#d4af37;--at:#14100a}
 .p-vc .in{grid-template-rows:auto 1fr;gap:44px;padding-bottom:0}
 .p-vc .top{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px;align-items:end}
@@ -285,6 +299,8 @@ html[data-motion=on] .stp .rw.s>*{animation:pulse 1s ease-in-out infinite altern
 .about h2{font-size:var(--h2);margin-bottom:30px}
 .about .lede{font-size:clamp(1.2rem,1.75vw,1.7rem);line-height:1.42;max-width:34ch}
 .about .lede+p{margin-top:22px;max-width:52ch}
+.about .cvb{margin-top:30px}
+.brief .btn.ghost:hover{background:#fff;color:var(--blue);box-shadow:inset 0 0 0 2px #fff}
 .tl-list li{display:grid;grid-template-columns:11rem 1fr;gap:6px 24px;padding:24px 0;border-top:2px solid var(--ink)}
 .tl-list time{font-weight:650;font-variant-numeric:tabular-nums}
 .tl-list b{display:block;font:800 var(--h3)/1.2 var(--display);letter-spacing:-.01em}
@@ -542,6 +558,8 @@ html[data-motion=on] .hero:not(.in) .face.ui .hero-foot,html[data-motion=on] .he
   .nums{flex-wrap:wrap}
   .nums li{flex:1 1 50%}
   .rows{grid-template-columns:minmax(0,1fr)}
+  .roles{grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 18px}
+  .roles li:nth-child(n){translate:none}
   .p-lt .in{padding-bottom:150px!important}
   .cols{flex-direction:column;height:auto}
   .cols li,.cols li.on{flex:none}
