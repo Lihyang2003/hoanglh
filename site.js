@@ -322,6 +322,13 @@
     if (motion()) { let done = false; new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && !done) { done = true; let i = 0; const run = () => { if (f.dataset.touched || i >= b.length) { if (!f.dataset.touched) go(0); return } go(i++); setTimeout(run, 260) }; run() } }), { threshold: .6 }).observe(f); f.addEventListener('pointerdown', () => f.dataset.touched = 1); f.addEventListener('keydown', () => f.dataset.touched = 1) }
   });
 
+  /* CMS desk */
+  $$('.dk').forEach(d => {
+    const li = $$('.dk-l li', d), pa = $$('.pane', d);
+    const go = i => { li.forEach((l, k) => { l.classList.toggle('on', k === i); $('button', l).setAttribute('aria-expanded', k === i) }); pa.forEach((p, k) => p.classList.toggle('on', k === i)) };
+    li.forEach((l, i) => { const b = $('button', l); b.addEventListener('click', () => go(i)); b.addEventListener('keydown', e => { const n = e.key === 'ArrowDown' ? i + 1 : e.key === 'ArrowUp' ? i - 1 : -1; if (li[n]) { e.preventDefault(); $('button', li[n]).focus(); go(n) } }) });
+  });
+
   /* copy mail */
   $$('[data-copy]').forEach(b => b.addEventListener('click', async () => {
     const keep = b.innerHTML;
