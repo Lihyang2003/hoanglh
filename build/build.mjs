@@ -15,7 +15,7 @@ const note = (en, vi) => `<aside class="note"><div><p>${t(en, vi)}</p></div></as
 const btn = (href, label, cls = '') => `<a class="btn ${cls}" href="${href}">${label}</a>`;
 const ext = 'target="_blank" rel="noopener"';
 
-const SITE = 'https://lihyang2003.github.io/portfolio/';
+const SITE = 'https://lihyang2003.github.io/hoanglh/';
 const page = ({ title, desc, body, home, color, js = '', path = '' }) => `<!doctype html>
 <html lang="en" data-view="ui" data-motion="on">
 <head>
